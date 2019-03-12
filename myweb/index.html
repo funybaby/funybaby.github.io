@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>工作网站</title>
+	<link rel="stylesheet" href="/res/zoumin.css">
+	<style type="text/css">
+	.container{
+		width: 90%;
+		margin-top: 20px;
+	}
+    .menubar
+        {line-height: 24px; width: 20%}
+    .menubar .menuend
+        {clear: both;}
+    .menutitle
+    	{ font-size: 18px;width: 100%;text-align: center; }
+    .menuitem
+        {background: #fff; border: 1px solid #c00; position: relative; margin: 2px 20px;}
+    .menuitem .submenu
+        {background: #ccc; border: 1px solid #00c; position: absolute; top: 0px; left: 100%; width: 8rem;z-index: 1;}
+    /** 下面的控制显示和隐藏 **/
+    .menuitem .submenu
+        {display: none;}
+    .menuitem:hover .submenu
+        {display: block;}
+
+    .iframe
+    	{margin-top:-11px; border: 1px solid #ccc; width: 79%; min-height:600px;height: 700px;
+    overflow-y: hidden;}
+
+    .header {
+	    position: fixed;
+	    bottom: 10px;
+	    right: 10px;
+	    display: block;
+	}
+</style>
+</head>
+<body>
+	<div class="header">
+		<input type="button" value="复制路径" id="copyurlBtn">
+		<button id="btn_top" title="回到顶部">回到顶部</button>
+	</div>
+	<div class="container">
+	<!-- 菜单 -->
+		<div id="menu" class="menubar fl">
+		    <div class="menuitem fl">
+		        <div class="menutitle">菜单1</div>
+		        <div class="submenu">
+		            <div class="menuclick" data-url="1-11">子菜单1</div>
+		            <div class="menuclick" data-url="1-22">子菜单2</div>
+		        </div>
+		    </div>
+		    <div class="menuitem fl">
+		        <div class="menutitle">菜单2</div>
+		        <div class="submenu">
+		            <div class="menuclick" data-url="2-11">子菜单1</div>
+		            <div class="menuclick" data-url="2-22">子菜单2</div>
+		            <div class="menuclick" data-url="2-33">子菜单3</div>
+		        </div>
+		    </div>
+		</div>
+	<!-- ifarame -->
+		<input type="hidden" id="copyurl" />
+		<div class="iframe fl">
+			<iframe id="myframe" width="100%" height="100%" frameBorder="0" src="/agency.html" scrolling="yes">
+
+			</iframe>
+		</div>
+	</div>
+</body>
+<script src="/res/jquery.js"></script>
+<script src="/res/zoumin.js"></script>
+<script>
+
+var bootUrl="";//网站跟路径
+//一级菜单对象
+var menu1=[];
+//二级菜单对象
+var menu2=[];
+
+//生成菜单
+// <div class="menuitem fl">
+//     <div class="menutitle">菜单1</div>
+//     <div class="submenu">
+//         <div class="menuclick" data-url="1-11">子菜单1</div>
+//         <div class="menuclick" data-url="1-22">子菜单2</div>
+//     </div>
+// </div>
+
+function initMenue(){
+	menu2=unique(menu2);
+	var html="";
+	for(var i=0;i<menu1.length;i++){
+		html+='<div class="menuitem fl">'+
+		 		'<div class="menutitle">'+menu1[i]+'</div>'+
+		 		'<div class="submenu">';
+		for(var j=0;j<menu2.length;j++){
+			if(menu1[i]==menu2[j].menuName1){
+				html+='<div class="menuclick" data-url="'+menu2[j].menuName1+'/'+menu2[j].menuName2+'/index.html">'+menu2[j].menuName2+'</div>';
+			}
+		}
+		html+='</div></div>'
+	}
+	$("#menu").html(html);
+	// 子菜单点击
+	$(".menuclick").click(function(){
+		var frameUrl=$(this).attr("data-url");
+		document.getElementById('myframe').src=frameUrl;
+		$("#copyurl").val(bootUrl+frameUrl);
+
+		return ;
+	});
+}
+
+$(function(){
+	var height=screen.height;
+	$('.iframe').height(height-140);
+	$.ajax({
+		contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+		url:"index.txt",
+		dataType:"text",
+		type:'post',
+		success:function(text){
+			var arr=text.split(/\n/);
+			arr.pop();//移除最后一个元素
+			console.log(arr);
+			menu1=arr[0].split(', ');
+			bootUrl=menu1[menu1.length-1];
+			bootUrl=bootUrl.substr(0,bootUrl.length-11);
+			menu1.pop();
+			console.log(menu1);
+			DelArrayElement(arr, 0);//删除数组第一个元素
+			menu2=getMenu2Data(arr)
+			initMenue();//生成菜单
+		},
+		error:function(){
+			console.log('获取数据异常');
+		}
+	});
+//复制路径
+	$("#copyurlBtn").click(function(){
+		var url=$("#copyurl").val();
+		if(url==""){
+			alert("你还没选择目录！");
+			return;
+		}
+		url=url.replace(/\//g,"\\");
+		url=url.substr(0,url.length-11);
+        myCopy(url);
+
+        //  调用node执行cmd 接口
+        $.ajax({
+        	contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+        	url:"http://localhost:4000/openfile",
+        	dataType:"json",
+        	type:'get',
+        	data:{
+        		url:url
+        	},
+        	success:function(data){
+        		console.log(data)
+        	},
+        	error:function(){
+        		console.log('获取数据异常');
+        	}
+        });
+	});
+
+ 	$('#btn_top').click(function () {
+ 	    $('#myframe').contents().scrollTop(0);
+ 	});
+});
+
+//获取菜单2 数据 
+	function getMenu2Data(arr){
+		var len=bootUrl.length;
+		var obj=[];
+		for(var i in arr){
+			var str=arr[i].substr(len,arr[i].length-len-12).split('\\');
+			var tempObj={
+				menuName1:str[0],
+				menuName2:str[1]
+			};
+			obj.push(tempObj);
+		}
+		
+		return obj;
+	}
+
+// 数组去重复
+function unique(arr) {  
+   var newArr = [],newArr1 = [];
+     for(var i in arr) {
+         if(newArr.indexOf(arr[i].menuName1+arr[i].menuName2) == -1) {
+            newArr.push(arr[i].menuName1+arr[i].menuName2);
+            newArr1.push(arr[i])
+         }
+     }
+     return newArr1;
+ }
+
+
+</script>
+</html>

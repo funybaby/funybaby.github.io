@@ -1,0 +1,37 @@
+*{margin: 0;padding: 0;-webkit-tap-highlight-color: rgba(0,0,0,0);outline: none;}
+        body,html{width: 100%;font-family: "Microsoft YaHei", Helvetica Neue, Helvetica, Arial, sans-serif;-webkit-text-size-adjust: 100% !important;position:relative;background:#e2e2e2;
+ overflow-y: auto; }
+        a,button,input{outline:0;-webkit-tap-highlight-color:rgba(255,0,0,0);-webkit-appearance:none;text-decoration:none}
+        em,i{font-style:normal}
+        blockquote,body,dd,div,dl,dt,fieldset,form,h1,h2,h3,h4,h5,h6,input,li,ol,p,pre,td,textarea,th,ul{padding:0;margin:0}
+        li{list-style: none}
+        img{border: none;}
+        .fl{float:left}
+        .fr{float:right}
+        .clearFix:after{content:"";display:block;clear:both;height:0}
+        .clearFix{zoom:1}
+        
+textarea {
+    display: block;
+    width: 90%;
+    height: 34px;
+    overflow: hidden;
+    padding: 5px 10px;
+    margin: 5px auto 0;
+    resize: none;
+    line-height: 24px;
+    font-size: 16px;
+    color: #666;
+    border: 1px solid #ccc;
+    outline: 0 none;
+    box-shadow: 0 0 5px #999;
+    border-radius: 3px;
+    box-sizing: border-box;
+    transition: all 200ms linear;
+}
+
+textarea:focus {
+    color: #277fe4;
+    border-color: #2196f3;
+    box-shadow: 0 0 5px #03a9f4;
+}

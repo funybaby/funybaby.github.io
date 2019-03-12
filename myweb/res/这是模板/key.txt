@@ -1,0 +1,76 @@
+﻿Amazon funy_baby@outlook.com zoumin775852
+farfetch funy_baby@outlook.com zoumin775852
+shopbop funy_baby@outlook.com zoumin775852
+facebook funy_baby@outlook.com zoumin775852
+twitter funy_baby@outlook.com zoumin775852
+
+微信订阅号 568940622@qq.com zoumin775852
+微信小程序 zouminxiangrikui@gmail.com zoumin775852
+微信开放平台 funy_baby@outlook.com zoumin775852
+企业号 微信扫码直接进入
+个税账号 funy_baby zoumin775852
+
+谷歌账号 zouminxiangrikui@gmail.com zoumin@12
+微软账号 funy_baby@outlook.com zoumin@12
+
+微博 18101095387 zoumin775852
+微信 18101095387 zoumin775852
+博客园 568940622@qq.com lvyuan@12
+
+on press
+https://www.processon.com/
+大Q 
+小Q
+阿里云 18101095387 zoumin775852 
+oss AccessKeyId	AccessKeySecret
+LTAIB7GwMxKnBgf6	maAI1BWDnPtZBWwbmn78rAR73Mqu3C
+
+vultr https://my.vultr.com/ 568940622@qq.com Zoumin7758
+搬瓦工 568940622@qq.com 1qaz@WS
+98.142.130.70  26303 root 1qaz@WS
+翻墙 98.142.130.70 123456
+苹果 Zoumin775852
+
+Oralcle funy_baby@outlook.com 1qaz@WS
+小米 568940622@qq.com zoumin775852
+百度云 568940622@qq.com zoumin775852
+csdn 568940622@qq.com zoumin775852
+七牛云 1946026625@qq.com zoumin775852
+github 1946026625@qq.com zoumin775852
+process on 1946026625@qq.com zoumin775852
+一览 1946026625@qq.com 1qaz@WS
+
+youtube
+
+慕课网
+网易云
+12306
+智行火车票 
+电信营业厅
+青客公寓
+58
+咸鱼
+转转
+淘宝
+美团
+携程
+
+
+开机 
+数据库 pass01!
+
+https 配置
+	listen 443 ssl;
+	server_name jnby.jnby.com
+	ssl on;
+	ssl_certificate      214672041700023.pem;          
+    	ssl_certificate_key  214672041700023.key;          
+    
+    	ssl_session_cache    shared:SSL:1m;
+    	ssl_session_timeout  5m;
+    
+   	ssl_ciphers  HIGH:!aNULL:!MD5;                
+    	ssl_prefer_server_ciphers   on;   
+
+
+

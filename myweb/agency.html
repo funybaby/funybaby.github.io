@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>我的待办</title>
+	<link rel="stylesheet" href="/res/zoumin.css">
+</head>
+<body>
+<input type="button" id="addagency" value="保存代办">
+	<textarea name="content" id="content" ></textarea>
+</body>
+<script src="/res/jquery.js"></script>
+<script src="/res/zoumin.js"></script>
+<script>
+$(function(){
+	var text=localStorage.getItem('zouminAgency');
+	$("#content").val(text);
+	textareaAutoHeight();//设置textarea自动高度
+	// setTimeout(function() {
+	// 	parent.reinitIframe();//设置iframe自动高度
+	// }, 200);
+	
+
+// 保存代办
+	$("#addagency").click(function(){
+		var text=$("#content").val();
+		localStorage.setItem('zouminAgency',text);
+		// alert("保存成功！");
+	});
+	
+})
+</script>
+</html>
